@@ -4,7 +4,11 @@
 
 原软件地址：[https://github.com/2044-space-elevator/TouchFish](https://github.com/2044-space-elevator/TouchFish)
 
-此Pro版本为在原代码的基础上，使用AI对其进行重构，功能升级，未经完整测试，会有少许bug，[请在issues里提交](https://github.com/PigeonTechGroup/TouchFishPro/issues)
+此Pro版本为在原代码的基础上，使用AI对client代码进行重构，功能升级，未经完整测试，会有少许bug，[请在issues里提交](https://github.com/PigeonTechGroup/TouchFishPro/issues)
+
+在client代码中，由于原版本占用版本号v1.1.?，所以client版本号为v1.2.0
+
+在server代码中，由于直接使用原版本文件chat.py，只对其修改做到自动填入ip地址，不做任何版本号及内容的修改
 
 > 以下内容摘自原README
 
