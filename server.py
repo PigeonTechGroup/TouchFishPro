@@ -55,7 +55,8 @@ if len(sys.argv) == 4:
 
 else:
     print("You can use command, `chat <IP> <MAXNUMBER> <PORT>` to start it.")
-    ip = input("Connect to IP:")
+    ip = socket.gethostbyname(socket.gethostname())
+    print("Connect to IP:"+ip)
     account_numbers = eval(input("The maximum times of connectng:"))
     portin = eval(input("The connecting port (must be spare):"))
 
