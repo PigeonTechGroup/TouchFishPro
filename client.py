@@ -485,11 +485,13 @@ class ChatClient(QWidget):
         info_layout = QVBoxLayout()
         info_layout.addWidget(QLabel("提示: Ctrl+Enter 发送消息", alignment=Qt.AlignmentFlag.AlignCenter))
         CURRENT_VERSION = "v1.2.0"
-        try:
-            NEWEST_VERSION = requests.get("https://www.bopid.cn/chat/newest_version_client.html").content.decode()
-        except Exception:
-            NEWEST_VERSION = "UNKNOWN"
-        info_layout.addWidget(QLabel(f"版本: {CURRENT_VERSION} (最新: {NEWEST_VERSION})", alignment=Qt.AlignmentFlag.AlignCenter))
+        # try:
+        #     NEWEST_VERSION = requests.get("https://www.bopid.cn/chat/newest_version_client.html").content.decode()
+        # except Exception:
+        #     NEWEST_VERSION = "UNKNOWN"
+        # info_layout.addWidget(QLabel(f"版本: {CURRENT_VERSION} (最新: {NEWEST_VERSION})", alignment=Qt.AlignmentFlag.AlignCenter))
+        info_layout.addWidget(QLabel(f"当前版本: {CURRENT_VERSION}", alignment=Qt.AlignmentFlag.AlignCenter))
+        
         layout.addLayout(info_layout)
         
         self.setLayout(layout)
