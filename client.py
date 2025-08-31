@@ -301,23 +301,42 @@ def get_hh_mm_ss() -> str:
     """返回 HH:MM:SS 格式的时间字符串"""
     return datetime.datetime.now().strftime("%H:%M:%S")
 
+# def latex_to_svg_data_uri(latex_string: str, is_display_style: bool, is_dark_theme: bool) -> str:
+#     """使用 Matplotlib 将 LaTeX 字符串转换为 SVG 图像的 Data URI"""
+#     try:
+#         # Matplotlib 的 mathtext 需要将公式包裹在 $ 中
+#         clean_latex = f"${latex_string}$"
+        
+#         fig = plt.figure(figsize=(0.01, 0.01))
+#         color = 'white' if is_dark_theme else 'black'
+#         fig.text(0, 0, clean_latex, usetex=False, fontsize=12, color=color, fontname='Times New Roman')
+
+#         buffer = io.BytesIO()
+#         plt.savefig(buffer, format='svg', bbox_inches='tight', pad_inches=0.1, transparent=True)
+#         plt.close(fig)
+
+#         svg_data = buffer.getvalue()
+#         base64_data = base64.b64encode(svg_data).decode('utf-8')
+
 def latex_to_svg_data_uri(latex_string: str, is_display_style: bool, is_dark_theme: bool) -> str:
     """使用 Matplotlib 将 LaTeX 字符串转换为 SVG 图像的 Data URI"""
     try:
         # Matplotlib 的 mathtext 需要将公式包裹在 $ 中
         clean_latex = f"${latex_string}$"
         
-        fig = plt.figure(figsize=(0.01, 0.01))
-        color = 'white' if is_dark_theme else 'black'
-        fig.text(0, 0, clean_latex, usetex=False, fontsize=12, color=color)
+        # 使用 rc_context 临时设置字体为 STIX (Times-like 风格)
+        with plt.rc_context({'mathtext.fontset': 'stix'}):
+            fig = plt.figure(figsize=(0.01, 0.01))
+            color = 'white' if is_dark_theme else 'black'
+            # 字体由 rc_context 控制，此处不再需要 fontname 参数
+            fig.text(0, 0, clean_latex, usetex=False, fontsize=12, color=color)
 
-        buffer = io.BytesIO()
-        plt.savefig(buffer, format='svg', bbox_inches='tight', pad_inches=0.1, transparent=True)
-        plt.close(fig)
+            buffer = io.BytesIO()
+            plt.savefig(buffer, format='svg', bbox_inches='tight', pad_inches=0.1, transparent=True)
+            plt.close(fig)
 
         svg_data = buffer.getvalue()
         base64_data = base64.b64encode(svg_data).decode('utf-8')
-
         # 对于行内公式，使用 CSS 使其与文本垂直对齐
         style = "vertical-align: middle;" if not is_display_style else ""
         
